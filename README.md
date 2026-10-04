@@ -8,7 +8,7 @@ An anonymous survey website with **two ternary plots**: one for how society prio
 A Python script aggregates all responses into a single ternary plot, an Excel dataset and statistics.
 
 ```
-public/index.html              the website (single file: HTML + CSS + JS)
+index.html                     the website (single file: HTML + CSS + JS)
 api/                           Vercel serverless functions (submit, status, admin export)
 analysis/ternary_analysis.py   Python aggregation + statistics
 scripts/                       local dev server + API tests

@@ -22,7 +22,7 @@ Source documents (in this folder, not committed to git):
    - link to the website → the Vercel URL
    - link to the dataset **as an Excel file** → `analysis/output/responses.xlsx`
    - the Python code (copy/paste) → `analysis/ternary_analysis.py` (keep it as one self-contained, readable file)
-   - the HTML code of the website (copy/paste) → `public/index.html` (keep it as one self-contained file: inline CSS + JS)
+   - the HTML code of the website (copy/paste) → `index.html` (keep it as one self-contained file: inline CSS + JS)
 
 ## 2. Scenario and values (from "Digital Society Website.pdf" — use this wording)
 
@@ -40,7 +40,7 @@ Source documents (in this folder, not committed to git):
 ## 3. Architecture
 
 ```
-public/index.html        Static single-page site (survey). Inline CSS + JS, no build step, no frameworks.
+index.html               Static single-page site (survey). Inline CSS + JS, no build step, no frameworks.
 api/submit.js            POST — validates and stores one response (present + 2060) per respondent.
 api/status.js            GET  — tells the page whether this browser has already submitted.
 api/responses.js         GET  — admin-only export (JSON or CSV), protected by ADMIN_KEY.
@@ -50,7 +50,7 @@ analysis/requirements.txt      Python deps (pandas, numpy, matplotlib, openpyxl,
 vercel.json              Headers / function config.
 ```
 
-- **Hosting:** Vercel (static `public/` + Node serverless functions in `api/`). Code on GitHub; Vercel deploys from the GitHub repo.
+- **Hosting:** Vercel (static `index.html` at the repo root + Node serverless functions in `api/`). Code on GitHub; Vercel deploys from the GitHub repo.
 - **Storage:** Upstash Redis (free tier, added through the Vercel Marketplace → "Upstash for Redis"). Accessed via its REST API with plain `fetch` — **no npm dependencies**. Env vars: `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`; both names supported).
 - **Admin export:** `ADMIN_KEY` env var (long random string). `GET /api/responses?key=...&format=csv|json`.
 - If Redis env vars are missing the API falls back to an in-memory store **for local testing only** and says so in responses (`"storage":"memory"`).
@@ -104,7 +104,7 @@ Known limitation (mention in report): a determined person using a different brow
 6. Share the URL; collect ≥ 50 responses; run the Python script.
 
 ## 7. Conventions
-- Keep `public/index.html` a single self-contained file (it is pasted into the report).
+- Keep `index.html` a single self-contained file (it is pasted into the report).
 - Keep the Python script a single self-contained file (it is pasted into the report), well commented.
 - No secrets in the repo. `.env*` and `analysis/output/` are git-ignored.
 - Test changes locally with `node scripts/test-api.js` (API logic) and `python analysis/ternary_analysis.py --demo` before pushing.

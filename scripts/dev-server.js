@@ -1,4 +1,4 @@
-// Local preview: serves public/ and the api/ functions on http://localhost:3000
+// Local preview: serves index.html and the api/ functions on http://localhost:3000
 // Uses the in-memory store unless KV_REST_API_URL / KV_REST_API_TOKEN are set.
 // Usage: node scripts/dev-server.js   (optionally ADMIN_KEY=test node scripts/dev-server.js)
 const http = require('http');
@@ -19,8 +19,8 @@ function createServer() {
       return require(file)(req, res);
     }
     const rel = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-    const file = path.join(ROOT, 'public', path.normalize(rel));
-    if (!file.startsWith(path.join(ROOT, 'public')) || !fs.existsSync(file)) { res.statusCode = 404; return res.end('Not found'); }
+    const file = path.join(ROOT, path.normalize(rel));
+    if (!file.startsWith(ROOT) || !/.(html|css|js|png|svg)$/.test(file) || file.includes(path.sep + 'api' + path.sep) || file.includes(path.sep + 'scripts' + path.sep) || !fs.existsSync(file)) { res.statusCode = 404; return res.end('Not found'); }
     res.setHeader('Content-Type', TYPES[path.extname(file)] || 'application/octet-stream');
     fs.createReadStream(file).pipe(res);
   });
