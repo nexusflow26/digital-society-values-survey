@@ -1,0 +1,14 @@
+# Course documents (UCD material, keep out of the public repo)
+*.pdf
+# Generated data and charts (contain survey responses)
+analysis/output/
+__pycache__/
+*.pyc
+.venv/
+# Secrets / local
+.env
+.env*.local
+.vercel
+node_modules/
+.DS_Store
+Thumbs.db

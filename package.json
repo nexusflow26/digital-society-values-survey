@@ -1,0 +1,11 @@
+{
+  "name": "digital-society-values-survey",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MIS20070 Digital Society: ternary-plot survey of changing values (2026 vs 2060)",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "test": "node scripts/test-api.js"
+  }
+}
